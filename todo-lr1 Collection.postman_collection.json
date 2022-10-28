@@ -1,0 +1,235 @@
+{
+	"info": {
+		"_postman_id": "dbd1c5ca-3886-4913-bae1-f74ff95d7e68",
+		"name": "todo-lr1 Collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "get root",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{defaultPath}}",
+					"host": [
+						"{{defaultPath}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add todo",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "task",
+							"value": "test_task",
+							"type": "default"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{addPath}}",
+					"host": [
+						"{{addPath}}"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "add todo",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "task",
+									"value": "test_task",
+									"type": "default"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{addPath}}?task=test_task",
+							"host": [
+								"{{addPath}}"
+							],
+							"query": [
+								{
+									"key": "task",
+									"value": "test_task"
+								}
+							]
+						}
+					},
+					"_postman_previewlanguage": null,
+					"header": null,
+					"cookie": [],
+					"body": null
+				}
+			]
+		},
+		{
+			"name": "get todo",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{editPath}}1",
+					"host": [
+						"{{editPath}}1"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "get todo",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{editPath}}1",
+							"host": [
+								"{{editPath}}1"
+							]
+						}
+					},
+					"_postman_previewlanguage": null,
+					"header": null,
+					"cookie": [],
+					"body": null
+				}
+			]
+		},
+		{
+			"name": "edit todo",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "task",
+							"value": "new_task",
+							"type": "default"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{editPath}}1",
+					"host": [
+						"{{editPath}}1"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "edit todo",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{editPath}}1?task=new_task",
+							"host": [
+								"{{editPath}}1"
+							],
+							"query": [
+								{
+									"key": "task",
+									"value": "new_task"
+								}
+							]
+						}
+					},
+					"_postman_previewlanguage": null,
+					"header": null,
+					"cookie": [],
+					"body": null
+				}
+			]
+		},
+		{
+			"name": "delete todo",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{deletePath}}1",
+					"host": [
+						"{{deletePath}}1"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "delete todo",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{deletePath}}1",
+							"host": [
+								"{{deletePath}}1"
+							]
+						}
+					},
+					"_postman_previewlanguage": null,
+					"header": null,
+					"cookie": [],
+					"body": null
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "defaultPath",
+			"value": "http://0.0.0.0:80/",
+			"type": "default"
+		},
+		{
+			"key": "addPath",
+			"value": "http://0.0.0.0:80/add/",
+			"type": "default"
+		},
+		{
+			"key": "editPath",
+			"value": "http://0.0.0.0:80/edit/",
+			"type": "default"
+		},
+		{
+			"key": "deletePath",
+			"value": "http://0.0.0.0:80/delete/",
+			"type": "default"
+		}
+	]
+}
