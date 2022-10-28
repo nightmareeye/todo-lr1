@@ -2,7 +2,7 @@
 """
 from loguru import logger
 
-from fastapi import FastAPI, Request, Depends, Form, status
+from fastapi import FastAPI, Request, Depends, Form, status, HTTPException
 from fastapi.templating import Jinja2Templates
 from fastapi.responses import RedirectResponse
 from fastapi.staticfiles import StaticFiles
@@ -33,9 +33,11 @@ async def home(request: Request, database: Session = Depends(get_db)):
 
 
 @app.post("/add")
-async def todo_add(request: Request, task: str = Form(...), database: Session = Depends(get_db)):
+async def todo_add(request: Request, task: str = Form(default=None, max_length=500), database: Session = Depends(get_db)):
     """Add new todo
     """
+    if task is None or len(task.replace(' ', '')) == 0:
+        raise HTTPException(status_code=404, detail="Empty request")
     todo = models.Todo(task=task)
     logger.info(f"Creating todo: {todo}")
     database.add(todo)
@@ -56,7 +58,7 @@ async def todo_get(request: Request, todo_id: int, database: Session = Depends(g
 async def todo_edit(
         request: Request,
         todo_id: int,
-        task: str = Form(...),
+        task: str = Form(max_length=500),
         completed: bool = Form(False),
         database: Session = Depends(get_db)):
     """Edit todo
@@ -73,8 +75,11 @@ async def todo_edit(
 async def todo_delete(request: Request, todo_id: int, database: Session = Depends(get_db)):
     """Delete todo
     """
-    todo = database.query(models.Todo).filter(models.Todo.id == todo_id).first()
-    logger.info(f"Deleting todo: {todo}")
-    database.delete(todo)
-    database.commit()
+    try:
+        todo = database.query(models.Todo).filter(models.Todo.id == todo_id).first()
+        logger.info(f"Deleting todo: {todo}")
+        database.delete(todo)
+        database.commit()
+    except:
+        raise HTTPException(status_code=404, detail="This todo doesn't exist")
     return RedirectResponse(url=app.url_path_for("home"), status_code=status.HTTP_303_SEE_OTHER)
