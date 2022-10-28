@@ -33,7 +33,7 @@ async def home(request: Request, database: Session = Depends(get_db)):
 
 
 @app.post("/add")
-async def todo_add(request: Request, task: str = Form(default=None), database: Session = Depends(get_db)):
+async def todo_add(request: Request, task: str = Form(default=None, max_length=500), database: Session = Depends(get_db)):
     """Add new todo
     """
     if task is None or len(task.replace(' ', '')) == 0:
@@ -58,7 +58,7 @@ async def todo_get(request: Request, todo_id: int, database: Session = Depends(g
 async def todo_edit(
         request: Request,
         todo_id: int,
-        task: str = Form(...),
+        task: str = Form(max_length=500),
         completed: bool = Form(False),
         database: Session = Depends(get_db)):
     """Edit todo
