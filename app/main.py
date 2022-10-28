@@ -2,7 +2,7 @@
 """
 from loguru import logger
 
-from fastapi import FastAPI, Request, Depends, Form, status
+from fastapi import FastAPI, Request, Depends, Form, status, HTTPException
 from fastapi.templating import Jinja2Templates
 from fastapi.responses import RedirectResponse
 from fastapi.staticfiles import StaticFiles
@@ -33,9 +33,11 @@ async def home(request: Request, database: Session = Depends(get_db)):
 
 
 @app.post("/add")
-async def todo_add(request: Request, task: str = Form(...), database: Session = Depends(get_db)):
+async def todo_add(request: Request, task: str = Form(default=None), database: Session = Depends(get_db)):
     """Add new todo
     """
+    if task is None or len(task.replace(' ', ''))==0:
+        raise HTTPException(status_code=404, detail="Empty request")
     todo = models.Todo(task=task)
     logger.info(f"Creating todo: {todo}")
     database.add(todo)
