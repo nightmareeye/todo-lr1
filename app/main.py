@@ -22,6 +22,7 @@ logger = logger.opt(colors=True)
 
 app.mount("/static", StaticFiles(directory="static"), name="static")
 
+
 @app.get("/")
 async def home(request: Request, database: Session = Depends(get_db)):
     """Main page with todo list
@@ -29,6 +30,7 @@ async def home(request: Request, database: Session = Depends(get_db)):
     logger.info("In home")
     todos = database.query(models.Todo).order_by(models.Todo.id.desc())
     return templates.TemplateResponse("index.html", {"request": request, "todos": todos})
+
 
 @app.post("/add")
 async def todo_add(request: Request, task: str = Form(...), database: Session = Depends(get_db)):
@@ -40,6 +42,7 @@ async def todo_add(request: Request, task: str = Form(...), database: Session = 
     database.commit()
     return RedirectResponse(url=app.url_path_for("home"), status_code=status.HTTP_303_SEE_OTHER)
 
+
 @app.get("/edit/{todo_id}")
 async def todo_get(request: Request, todo_id: int, database: Session = Depends(get_db)):
     """Get todo
@@ -47,6 +50,7 @@ async def todo_get(request: Request, todo_id: int, database: Session = Depends(g
     todo = database.query(models.Todo).filter(models.Todo.id == todo_id).first()
     logger.info(f"Getting todo: {todo}")
     return templates.TemplateResponse("edit.html", {"request": request, "todo": todo})
+
 
 @app.post("/edit/{todo_id}")
 async def todo_edit(
@@ -63,6 +67,7 @@ async def todo_edit(
     todo.completed = completed
     database.commit()
     return RedirectResponse(url=app.url_path_for("home"), status_code=status.HTTP_303_SEE_OTHER)
+
 
 @app.get("/delete/{todo_id}")
 async def todo_delete(request: Request, todo_id: int, database: Session = Depends(get_db)):
