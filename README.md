@@ -29,12 +29,12 @@ uvicorn main:app --reload
 ### Режим работы пользователя
 
 ```bash 
-docker build .
-
+docker build -t todo_lr1 .
+docker run -v ${PWD}:/app -p 80:80 todo_lr1
 ```
 
 ### Режим работы разработчика
 
 ```bash 
-docker run --rm -v ${PWD}/app:/app -p 80:80 todo_fastapi 
+docker run --rm -v ${PWD}:/app -p 80:80 todo_lr1
 ```
