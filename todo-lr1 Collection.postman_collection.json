@@ -28,8 +28,8 @@
 					"mode": "formdata",
 					"formdata": [
 						{
-							"key": "task",
-							"value": "test_task",
+							"key": "title",
+							"value": "test_title",
 							"type": "default"
 						}
 					]
@@ -51,21 +51,21 @@
 							"mode": "formdata",
 							"formdata": [
 								{
-									"key": "task",
-									"value": "test_task",
+									"key": "title",
+									"value": "test_title",
 									"type": "default"
 								}
 							]
 						},
 						"url": {
-							"raw": "{{addPath}}?task=test_task",
+							"raw": "{{addPath}}?title=test_title",
 							"host": [
 								"{{addPath}}"
 							],
 							"query": [
 								{
-									"key": "task",
-									"value": "test_task"
+									"key": "title",
+									"value": "test_title"
 								}
 							]
 						}
@@ -118,8 +118,8 @@
 					"mode": "formdata",
 					"formdata": [
 						{
-							"key": "task",
-							"value": "new_task",
+							"key": "title",
+							"value": "new_title",
 							"type": "default"
 						}
 					]
@@ -138,14 +138,14 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{editPath}}1?task=new_task",
+							"raw": "{{editPath}}1?title=new_title",
 							"host": [
 								"{{editPath}}1"
 							],
 							"query": [
 								{
-									"key": "task",
-									"value": "new_task"
+									"key": "title",
+									"value": "new_title"
 								}
 							]
 						}

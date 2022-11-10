@@ -2,10 +2,10 @@
 
 {% block content %}
     <form action="/edit/{{todo.id}}" method="post">
-        <div class="task">
+        <div class="title">
         <h2>Заголовок задачи</h2>
         </div>
-        <textarea name="task" rows="5">{{todo.task}}</textarea>
+        <textarea name="title" rows="5">{{todo.title}}</textarea>
         <label for="completed">Выполнено?</label>
         <input type="checkbox" name="completed" {% if todo.completed %}checked{% endif %}>
 

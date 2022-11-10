@@ -33,12 +33,12 @@ async def home(request: Request, database: Session = Depends(get_db)):
 
 
 @app.post("/add")
-async def todo_add(request: Request, task: str = Form(default=None, max_length=500), database: Session = Depends(get_db)):
+async def todo_add(request: Request, title: str = Form(default=None, max_length=500), database: Session = Depends(get_db)):
     """Add new todo
     """
-    if task is None or len(task.replace(' ', '')) == 0:
+    if title is None or len(title.replace(' ', '')) == 0:
         raise HTTPException(status_code=404, detail="Empty request")
-    todo = models.Todo(task=task)
+    todo = models.Todo(title=title)
     logger.info(f"Creating todo: {todo}")
     database.add(todo)
     database.commit()
@@ -58,14 +58,14 @@ async def todo_get(request: Request, todo_id: int, database: Session = Depends(g
 async def todo_edit(
         request: Request,
         todo_id: int,
-        task: str = Form(max_length=500),
+        title: str = Form(max_length=500),
         completed: bool = Form(False),
         database: Session = Depends(get_db)):
     """Edit todo
     """
     todo = database.query(models.Todo).filter(models.Todo.id == todo_id).first()
     logger.info(f"Editting todo: {todo}")
-    todo.task = task
+    todo.title = title
     todo.completed = completed
     database.commit()
     return RedirectResponse(url=app.url_path_for("home"), status_code=status.HTTP_303_SEE_OTHER)
