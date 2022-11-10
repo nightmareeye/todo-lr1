@@ -38,7 +38,7 @@ async def todo_add(request: Request, title: str = Form(default=None, max_length=
     """
     if title is None or len(title.replace(' ', '')) == 0:
         raise HTTPException(status_code=404, detail="Empty request")
-    todo = models.Todo(title=title)
+    todo = models.Todo(title=title, details = "Your coolest details")
     logger.info(f"Creating todo: {todo}")
     database.add(todo)
     database.commit()
@@ -59,6 +59,7 @@ async def todo_edit(
         request: Request,
         todo_id: int,
         title: str = Form(max_length=500),
+        details: str = Form(max_length=500),
         completed: bool = Form(False),
         database: Session = Depends(get_db)):
     """Edit todo
@@ -66,6 +67,7 @@ async def todo_edit(
     todo = database.query(models.Todo).filter(models.Todo.id == todo_id).first()
     logger.info(f"Editting todo: {todo}")
     todo.title = title
+    todo.details = details
     todo.completed = completed
     database.commit()
     return RedirectResponse(url=app.url_path_for("home"), status_code=status.HTTP_303_SEE_OTHER)

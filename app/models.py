@@ -11,7 +11,9 @@ class Todo(Base):
     __tablename__ = 'todos'
     id = Column(Integer, primary_key=True)
     title = Column(Text)
+    details = Column(Text)
     completed = Column(Boolean, default=False)
+
 
     def __repr__(self):
         return f'<Todo {self.id}>'
