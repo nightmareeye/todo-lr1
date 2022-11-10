@@ -2,7 +2,7 @@
 
 {% block content %}
     <form action="/edit/{{todo.id}}" method="post">
-        <div class="title">
+        <div class="task">
         <h2>Заголовок задачи</h2>
         </div>
         <textarea name="title" rows="5">{{todo.title}}</textarea>

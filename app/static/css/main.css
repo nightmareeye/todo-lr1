@@ -36,7 +36,7 @@ button{
     cursor: pointer;
 }
 
-.title{
+.task{
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -44,10 +44,6 @@ button{
     border-bottom: 1px solid #ccc;
 }
 
-small{
-    text-align: right;
-}
-
-.title:first-child{
+.task:first-child{
     border-top: 1px solid #ccc;
 }
