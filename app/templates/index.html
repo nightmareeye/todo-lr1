@@ -21,6 +21,15 @@
                 <small>
                     <a href="edit/{{ todo.id }}">Редактировать</a>
                     <a href="delete/{{ todo.id }}">Удалить</a>
+                    {% if todo.completed %}
+                        <form action="/uncomplete/{{ todo.id }}" method="post">
+                        <button type="submit">Не выполнено</button>
+                        </form>
+                    {% else %}
+                        <form action="/complete/{{ todo.id }}" method="post">
+                        <button type="submit">Выполнено</button>
+                        </form>
+                    {% endif %}
                 </small>
             </div>
         {% endfor %}
