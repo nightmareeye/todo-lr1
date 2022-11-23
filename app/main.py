@@ -1,8 +1,10 @@
 """Main of todo app
 """
+import math
+
 from loguru import logger
 
-from fastapi import FastAPI, Request, Depends, Form, status, HTTPException
+from fastapi import FastAPI, Request, Depends, Form, status, HTTPException, Query
 from fastapi.templating import Jinja2Templates
 from fastapi.responses import RedirectResponse
 from fastapi.staticfiles import StaticFiles
@@ -24,12 +26,14 @@ app.mount("/static", StaticFiles(directory="static"), name="static")
 
 
 @app.get("/")
-async def home(request: Request, database: Session = Depends(get_db)):
+async def home(request: Request, database: Session = Depends(get_db), page: int = Query(default=0)):
     """Main page with todo list
     """
     logger.info("In home")
-    todos = database.query(models.Todo).order_by(models.Todo.id.desc())
-    return templates.TemplateResponse("index.html", {"request": request, "todos": todos})
+    skip = page * 10
+    todos = database.query(models.Todo).order_by(models.Todo.id.desc()).offset(skip).limit(10)
+    pages = math.ceil(database.query(models.Todo).count()/10)
+    return templates.TemplateResponse("index.html", {"request": request, "todos": todos, "pages": pages, "skip": skip, "page": page})
 
 
 @app.post("/add")
