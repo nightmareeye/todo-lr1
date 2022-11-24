@@ -56,7 +56,8 @@ async def todo_get(request: Request, todo_id: int, database: Session = Depends(g
     """
     todo = database.query(models.Todo).filter(models.Todo.id == todo_id).first()
     logger.info(f"Getting todo: {todo}")
-    return templates.TemplateResponse("edit.html", {"request": request, "todo": todo})
+    logger.info(f"{todo.tag}")
+    return templates.TemplateResponse("edit.html", {"request": request, "todo": todo, "tags": models.Tag})
 
 
 @app.post("/edit/{todo_id}")
@@ -65,6 +66,7 @@ async def todo_edit(
         todo_id: int,
         title: str = Form(max_length=500),
         details: str = Form(max_length=500),
+        tag:str = Form(None),
         completed: bool = Form(False),
         database: Session = Depends(get_db)):
     """Edit todo
@@ -74,6 +76,7 @@ async def todo_edit(
     todo.title = title
     todo.details = details
     todo.completed = completed
+    todo.tag = tag
     database.commit()
     return RedirectResponse(url=app.url_path_for("home"), status_code=status.HTTP_303_SEE_OTHER)
 

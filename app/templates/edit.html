@@ -7,6 +7,11 @@
         </div>
         <textarea name="title" rows="5">{{todo.title}}</textarea>
         <textarea name="details" rows="5">{{todo.details}}</textarea>
+        <select name="tag">
+            {% for tag in tags %}
+            <option {% if todo.tag == tag.value %} selected {% endif %} value= {{tag.value}} >{{ tag.value }}</option>
+            {% endfor %}
+        </select>
         <label for="completed">Выполнено?</label>
         <input type="checkbox" name="completed" {% if todo.completed %}checked{% endif %}>
 

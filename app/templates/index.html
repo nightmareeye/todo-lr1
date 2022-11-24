@@ -18,6 +18,7 @@
                 {% else %}
                     {{ todo.title }}
                 {% endif %}
+                <p>Категория: {{ todo.tag }}</p>
                 <small>
                     <a href="edit/{{ todo.id }}">Редактировать</a>
                     <a href="delete/{{ todo.id }}">Удалить</a>
