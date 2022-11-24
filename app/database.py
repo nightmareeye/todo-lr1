@@ -7,7 +7,7 @@ from sqlalchemy.orm import Session  #pylint: disable=unused-import
 
 from models import Base
 
-DB_PATH ="data"
+DB_PATH = "../data"
 DB_URL = os.path.join("sqlite:///", os.path.join(DB_PATH, "db.sqlite"))
 ENGINE = create_engine(DB_URL, connect_args={"check_same_thread": False})
 # for logging all SQL-queries
