@@ -32,8 +32,9 @@ async def home(request: Request, database: Session = Depends(get_db), page: int 
     logger.info("In home")
     skip = page * 10
     todos = database.query(models.Todo).order_by(models.Todo.id.desc()).offset(skip).limit(10)
-    pages = math.ceil(database.query(models.Todo).count()/10)
-    return templates.TemplateResponse("index.html", {"request": request, "todos": todos, "pages": pages, "skip": skip, "page": page})
+    pages = math.ceil(database.query(models.Todo).count() / 10)
+    return templates.TemplateResponse("index.html",
+                                      {"request": request, "todos": todos, "pages": pages, "skip": skip, "page": page})
 
 
 @app.post("/add")
@@ -66,7 +67,7 @@ async def todo_edit(
         todo_id: int,
         title: str = Form(max_length=500),
         details: str = Form(max_length=500),
-        tag:str = Form(None),
+        tag: str = Form(None),
         completed: bool = Form(False),
         database: Session = Depends(get_db)):
     """Edit todo
