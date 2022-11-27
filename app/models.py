@@ -1,17 +1,31 @@
 """Todo models
 """
-from sqlalchemy import Column, Integer, Boolean, Text
-from sqlalchemy.ext.declarative import declarative_base
+from enum import Enum
 
-Base = declarative_base()
+from sqlalchemy import Column, Integer, Boolean, Text
+
+from database import Base
+
+
+class Tag(str, Enum):
+    """Todo enum tags
+    """
+    STUDY = "Учеба"
+    PERSONAL = "Личное"
+    FUTURE = "Планы"
+
 
 class Todo(Base):
     """Todo model
     """
-    __tablename__ = 'todos'
+    __tablename__ = "todos"
     id = Column(Integer, primary_key=True)
-    task = Column(Text)
+    title = Column(Text)
+    details = Column(Text)
     completed = Column(Boolean, default=False)
+    tag = Column(Text, default="")
 
     def __repr__(self):
         return f'<Todo {self.id}>'
+    def __len__(self):
+        return f'<Todo\'s size {len(self.title)}>'

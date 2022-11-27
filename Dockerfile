@@ -9,3 +9,5 @@ RUN pip install --default-timeout=1000 --no-cache-dir --upgrade -r /todo-lr1/req
 COPY ./app /todo-lr1/app
 
 CMD ["uvicorn", "main:app", "--reload", "--host", "0.0.0.0", "--port", "80"]
+
+
