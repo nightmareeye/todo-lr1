@@ -9,9 +9,11 @@ Base = declarative_base()
 
 
 class Tag(str, Enum):
-    study = "Учеба"
-    personal = "Личное"
-    future = "Планы"
+    """Todo enum tags
+    """
+    STUDY = "Учеба"
+    PERSONAL = "Личное"
+    FUTURE = "Планы"
 
 
 class Todo(Base):
@@ -26,3 +28,5 @@ class Todo(Base):
 
     def __repr__(self):
         return f'<Todo {self.id}>'
+    def __len__(self):
+        return f'<Todo\'s size {len(self.title)}>'

@@ -1,4 +1,4 @@
-"""Main of todo app
+"""Main of todo_app
 """
 import math
 
@@ -34,11 +34,12 @@ async def home(request: Request, database: Session = Depends(get_db), page: int 
     todos = database.query(models.Todo).order_by(models.Todo.id.desc()).offset(skip).limit(10)
     pages = math.ceil(database.query(models.Todo).count() / 10)
     return templates.TemplateResponse("index.html",
-                                      {"request": request, "todos": todos, "pages": pages, "skip": skip, "page": page})
+                                      {"request": request, "todos": todos,
+                                       "pages": pages, "skip": skip, "page": page})
 
 
 @app.post("/add")
-async def todo_add(request: Request, title: str = Form(default=None, max_length=500),
+async def todo_add(title: str = Form(default=None, max_length=500),
                    database: Session = Depends(get_db)):
     """Add new todo
     """
@@ -58,12 +59,14 @@ async def todo_get(request: Request, todo_id: int, database: Session = Depends(g
     todo = database.query(models.Todo).filter(models.Todo.id == todo_id).first()
     logger.info(f"Getting todo: {todo}")
     logger.info(f"{todo.tag}")
-    return templates.TemplateResponse("edit.html", {"request": request, "todo": todo, "tags": models.Tag})
+    return templates.TemplateResponse("edit.html",
+                                      {"request": request,
+                                       "todo": todo,
+                                       "tags": models.Tag})
 
 
 @app.post("/edit/{todo_id}")
 async def todo_edit(
-        request: Request,
         todo_id: int,
         title: str = Form(max_length=500),
         details: str = Form(max_length=500),
@@ -84,7 +87,6 @@ async def todo_edit(
 
 @app.post("/complete/{todo_id}")
 async def todo_complete(
-        request: Request,
         todo_id: int,
         database: Session = Depends(get_db)):
     """Complete todo
@@ -98,7 +100,6 @@ async def todo_complete(
 
 @app.post("/uncomplete/{todo_id}")
 async def todo_uncomplete(
-        request: Request,
         todo_id: int,
         database: Session = Depends(get_db)):
     """Complete todo
@@ -111,7 +112,9 @@ async def todo_uncomplete(
 
 
 @app.get("/delete/{todo_id}")
-async def todo_delete(request: Request, todo_id: int, database: Session = Depends(get_db)):
+async def todo_delete(
+        todo_id: int,
+        database: Session = Depends(get_db)):
     """Delete todo
     """
     try:
@@ -119,6 +122,6 @@ async def todo_delete(request: Request, todo_id: int, database: Session = Depend
         logger.info(f"Deleting todo: {todo}")
         database.delete(todo)
         database.commit()
-    except:
-        raise HTTPException(status_code=404, detail="This todo doesn't exist")
+    except HTTPException as error:
+        raise HTTPException(status_code=404, detail="This todo doesn't exist") from error
     return RedirectResponse(url=app.url_path_for("home"), status_code=status.HTTP_303_SEE_OTHER)
