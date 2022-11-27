@@ -3,9 +3,8 @@
 from enum import Enum
 
 from sqlalchemy import Column, Integer, Boolean, Text
-from sqlalchemy.ext.declarative import declarative_base
 
-Base = declarative_base()
+from database import Base
 
 
 class Tag(str, Enum):
@@ -19,7 +18,7 @@ class Tag(str, Enum):
 class Todo(Base):
     """Todo model
     """
-    __tablename__ = 'todos'
+    __tablename__ = "todos"
     id = Column(Integer, primary_key=True)
     title = Column(Text)
     details = Column(Text)
