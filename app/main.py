@@ -11,7 +11,7 @@ from fastapi.staticfiles import StaticFiles
 
 from database import init_db, get_db, Session
 import models
-
+# pylint: disable=too-many-arguments
 init_db()
 
 # pylint: disable=invalid-name
