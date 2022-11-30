@@ -4,7 +4,7 @@
 
     <form action="/add" method="post">
         <textarea name="title" rows="5" placeholder="Введите задачу"></textarea>
-        <button type="submit">Добавить</button>
+        <button class="button-grad" type="submit">Добавить</button>
     </form>
 
     <br>
@@ -24,11 +24,11 @@
                     <a href="delete/{{ todo.id }}">Удалить</a>
                     {% if todo.completed %}
                         <form action="/uncomplete/{{ todo.id }}" method="post">
-                        <button type="submit">Не выполнено</button>
+                        <button class="button-grad" type="submit">Не выполнено</button>
                         </form>
                     {% else %}
                         <form action="/complete/{{ todo.id }}" method="post">
-                        <button type="submit">Выполнено</button>
+                        <button class="button-grad" type="submit">Выполнено</button>
                         </form>
                     {% endif %}
                 </small>
