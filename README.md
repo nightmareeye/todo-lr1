@@ -2,8 +2,8 @@
 ## Режим работы пользователя
 
 ```bash 
-docker build -t todo_lr1 .
-docker run -rm -p 80:80 todo_lr1
+sudo docker build -t todo_lr1 .
+sudo docker run -rm -p 80:80 todo_lr1
 ```
 
 ## Запуск генерации
@@ -20,7 +20,7 @@ sudo docker run --network=host todo_lr1 python3 scripts/generate.py --number 50
 
 ## С сохранением базы данных
 ```bash
-sudo docker run -rm -p 80:80 -v "${PWD}/data":/todo-lr1/data todo_lr1
+sudo docker run --rm -p 80:80 -v "${PWD}/data":/todo-lr1/data todo_lr1
 ```
 
 ## Режим работы разработчика

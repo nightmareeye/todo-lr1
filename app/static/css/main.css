@@ -2,11 +2,12 @@
     padding: 0;
     margin: 0;
     box-sizing: border-box;
+    color: white;
 }
 
 body{
     font-family: 'Roboto', sans-serif;
-    background: #f5f5f5;
+    background: #262626;
 }
 
 main{
@@ -23,6 +24,7 @@ textarea{
     border-radius: 5px;
     padding: 10px;
     resize: none;
+    background: #262626;
 }
 
 input[type="checkbox"].switch{
@@ -32,7 +34,7 @@ input[type="checkbox"].switch{
           appearance: none;
   width: 35px;
   height: 15px;
-  background: #ddd;
+  background: #5c5c5c;
   border-radius: 8px;
   position: relative;
   cursor: pointer;
@@ -42,7 +44,7 @@ input[type="checkbox"].switch{
   }
 
   input[type="checkbox"].switch:checked{
-  background: #0ebeff;
+  background: #ef6eae;
   }
 
   input[type="checkbox"].switch:after{
@@ -151,10 +153,39 @@ button{
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 8px 0;
-    border-bottom: 1px solid #ccc;
+    padding: 8px 8px;
 }
 
 .task:first-child{
     border-top: 1px solid #ccc;
 }
+
+a{
+    display: inline-block;
+    outline: 0;
+    border: 0;
+    cursor: pointer;
+    text-decoration:none;
+    border-radius: 4px;
+
+    padding: 10px 15px;
+    text-shadow: rgb(0 0 0 / 25%) 0px 3px 8px;
+    background: linear-gradient(92.88deg, rgb(69, 94, 181) 9.16%, rgb(86, 67, 204) 43.89%, rgb(103, 63, 215) 64.72%);
+    transition: all 0.5s ease 0s;
+}
+a:hover{
+    box-shadow: rgb(80 63 205 / 70%) 0px 1px 20px;
+    transition: all 0.3s ease 0s;
+}
+
+
+select {
+  background-color: #5c5c5c;
+  color: white;
+  padding: 8px;
+  border: none;
+  border-radius: 4px;
+  box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
+  outline: none;
+}
+

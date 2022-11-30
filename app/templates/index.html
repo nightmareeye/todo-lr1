@@ -18,10 +18,10 @@
                 {% else %}
                     {{ todo.title }}
                 {% endif %}
-                <p>Категория: {{ todo.tag }}</p>
+                <p>{{ todo.tag }}</p>
                 <small>
-                    <a href="edit/{{ todo.id }}">Редактировать</a>
-                    <a href="delete/{{ todo.id }}">Удалить</a>
+                    <a class="pulse" href="edit/{{ todo.id }}">Редактировать</a>
+                    <a class="pulse" href="delete/{{ todo.id }}">Удалить</a>
                     {% if todo.completed %}
                         <form action="/uncomplete/{{ todo.id }}" method="post">
                         <button class="button-grad" type="submit">Не выполнено</button>
@@ -33,6 +33,7 @@
                     {% endif %}
                 </small>
             </div>
+        <hr>
         {% endfor %}
     </div>
     <div>
