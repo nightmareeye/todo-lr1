@@ -13,8 +13,8 @@
             {% endfor %}
         </select>
         <label for="completed">Выполнено?</label>
-        <input type="checkbox" name="completed" {% if todo.completed %}checked{% endif %}>
+        <input class="switch" type="checkbox" name="completed" {% if todo.completed %}checked{% endif %}>
 
-        <button type="submit">Сохранить</button>
+        <button class="button-grad" type="submit">Сохранить</button>
     </form>
 {% endblock content %}

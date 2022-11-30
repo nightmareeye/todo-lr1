@@ -39,7 +39,7 @@ async def home(request: Request, database: Session = Depends(get_db), page: int 
 
 
 @app.post("/add")
-async def todo_add(title: str = Form(default=None, max_length=500),
+async def todo_add(title: str = Form(default=None, max_length=500, min_length=3),
                    database: Session = Depends(get_db)):
     """Add new todo
     """
